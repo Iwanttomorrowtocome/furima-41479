@@ -54,13 +54,4 @@ Things you may want to cover:
 | item_id       | BIGINT        | FOREIGN KEY REFERENCES Items(id) |
 | purchase_date | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP |
 
-### **Addresses Table**
-| Column        | Type          | Constraints        |
-|---------------|---------------|--------------------|
-| id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
-| purchase_id   | BIGINT        | FOREIGN KEY REFERENCES Purchases(id) |
-| address_line  | TEXT          | NOT NULL           |
-| city          | VARCHAR(255)  | NOT NULL           |
-| zip_code      | VARCHAR(20)   | NOT NULL           |
-| country       | VARCHAR(255)  | NOT NULL           |
 
