@@ -23,8 +23,7 @@ Things you may want to cover:
 
 * ...
 
-
-**Users Table**
+### **Users Table**
 | Column        | Type          | Constraints        |
 |---------------|---------------|--------------------|
 | id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
@@ -34,8 +33,13 @@ Things you may want to cover:
 | created_at    | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP |
 | updated_at    | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP |
 
+**アソシエーション:**
+- 1ユーザーは複数のアイテムを出品できる。 (`has_many :items`)
+- 1ユーザーは複数の購入履歴を持つ。 (`has_many :purchases`)
+- 1ユーザーは複数の配送先情報を持つ。 (`has_many :addresses`)
 
-**Items Table**
+
+### **Items Table**
 | Column        | Type          | Constraints        |
 |---------------|---------------|--------------------|
 | id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
@@ -51,17 +55,30 @@ Things you may want to cover:
 | created_at    | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP |
 | updated_at    | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP |
 
+**アソシエーション:**
+- 1アイテムは1ユーザー（出品者）に関連付けられる。 (`belongs_to :user`)
+- 1アイテムは1カテゴリに関連付けられる。 (`belongs_to :category`)
+- 1アイテムは1商品の状態に関連付けられる。 (`belongs_to :condition`)
+- 1アイテムは1つの配送料負担に関連付けられる。 (`belongs_to :shipping_fee`)
+- 1アイテムは1つの発送元地域に関連付けられる。 (`belongs_to :region`)
+- 1アイテムは1つの発送までの日数に関連付けられる。 (`belongs_to :shipping_day`)
+- 1アイテムは複数の購入履歴を持つ。 (`has_many :purchases`)
 
-**Purchases Table**
+
+### **Purchases Table**
 | Column        | Type          | Constraints        |
 |---------------|---------------|--------------------|
 | id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
 | buyer_id      | BIGINT        | FOREIGN KEY REFERENCES Users(id) |
 | item_id       | BIGINT        | FOREIGN KEY REFERENCES Items(id) |
 | purchase_date | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP |
+**アソシエーション:**
+- 1購入は1ユーザー（購入者）に関連付けられる。 (`belongs_to :buyer, class_name: 'User'`)
+- 1購入は1アイテムに関連付けられる。 (`belongs_to :item`)
+- 1購入は複数の配送先を持つことができる。 (`has_many :addresses`)
 
 
-**Addresses Table**
+### **Addresses Table**
 | Column        | Type          | Constraints        |
 |---------------|---------------|--------------------|
 | id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
@@ -71,36 +88,57 @@ Things you may want to cover:
 | zip_code      | VARCHAR(10)   | NOT NULL           |
 | country       | VARCHAR(255)  | NOT NULL           |
 
+**アソシエーション:**
+- 1配送先は1購入に関連付けられる。 (`belongs_to :purchase`)
 
-**Categories Table** 
+
+### **Categories Table** 
 | Column        | Type          | Constraints        |
 |---------------|---------------|--------------------|
 | id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
 | name          | VARCHAR(255)  | NOT NULL           |
 
+**アソシエーション:**
+- 1カテゴリは複数のアイテムに関連付けられる。 (`has_many :items`)
 
-**ItemConditions Table**
+
+### **ItemConditions Table** 
 | Column        | Type          | Constraints        |
 |---------------|---------------|--------------------|
 | id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
 | name          | VARCHAR(255)  | NOT NULL           |
 
- **ShippingFees Table** 
+**アソシエーション:**
+- 1商品の状態は複数のアイテムに関連付けられる。 (`has_many :items`)
+
+
+### **ShippingFees Table** 
 | Column        | Type          | Constraints        |
 |---------------|---------------|--------------------|
 | id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
 | name          | VARCHAR(255)  | NOT NULL           |
 
+**アソシエーション:**
+- 1配送料の負担は複数のアイテムに関連付けられる。 (`has_many :items`)
 
-**Regions Table** 
+---
+
+### **Regions Table** 
 | Column        | Type          | Constraints        |
 |---------------|---------------|--------------------|
 | id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
 | name          | VARCHAR(255)  | NOT NULL           |
 
+**アソシエーション:**
+- 1地域は複数のアイテムに関連付けられる。 (`has_many :items`)
 
-**ShippingDays Table** 
+---
+
+### **ShippingDays Table** 
 | Column        | Type          | Constraints        |
 |---------------|---------------|--------------------|
 | id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
 | name          | VARCHAR(255)  | NOT NULL           |
+
+**アソシエーション:**
+- 1発送までの日数は複数のアイテムに関連付けられる。 (`has_many :items`)
