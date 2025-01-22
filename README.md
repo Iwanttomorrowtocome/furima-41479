@@ -23,12 +23,10 @@ Things you may want to cover:
 
 * ...
 
-Here is the schema you provided in markdown format:
-
-Here is the revised schema based on your preferences:
 
 ```markdown
-### USERS
+
+### USERS テーブル
 | Column               | Type           | Constraints                           |
 |----------------------|----------------|---------------------------------------|
 | nickname             | string         | null: false                           |
@@ -41,7 +39,12 @@ Here is the revised schema based on your preferences:
 | last_name_kana       | string         | null: false                           |
 | birth_date           | date           | null: false                           |
 
-### ITEMS
+**アソシエーション**:
+- `has_many :items`
+- `has_many :purchases`
+- `has_many :addresses, through: :purchases`
+
+### ITEMS テーブル
 | Column               | Type           | Constraints                                        |
 |----------------------|----------------|----------------------------------------------------|
 | name                 | string         | null: false                                        |
@@ -54,13 +57,28 @@ Here is the revised schema based on your preferences:
 | shipping_days_id     | integer        | null: false, foreign key references ShippingDays(id)|
 | user_id              | bigint         | null: false, foreign key references Users(id)      |
 
-### PURCHASES
+**アソシエーション**:
+- `belongs_to :user`
+- `belongs_to :category`
+- `belongs_to :condition`
+- `belongs_to :shipping_fee`
+- `belongs_to :region`
+- `belongs_to :shipping_day`
+- `has_many :purchases`
+- `has_many :addresses, through: :purchases`
+
+### PURCHASES テーブル
 | Column               | Type           | Constraints                                        |
 |----------------------|----------------|----------------------------------------------------|
 | buyer_id             | bigint         | null: false, foreign key references Users(id)      |
 | item_id              | bigint         | null: false, foreign key references Items(id)      |
 
-### ADDRESSES
+**アソシエーション**:
+- `belongs_to :user`
+- `belongs_to :item`
+- `has_one :address`
+
+### ADDRESSES テーブル
 | Column               | Type           | Constraints                                        |
 |----------------------|----------------|----------------------------------------------------|
 | purchase_id          | bigint         | null: false, foreign key references Purchases(id)  |
@@ -69,3 +87,9 @@ Here is the revised schema based on your preferences:
 | city                 | string         | null: false                                        |
 | address_line         | string         | null: false                                        |
 | country              | string         | null: false                                        |
+| region_id            | integer        | null: false, foreign key references Regions(id)     |
+
+**アソシエーション**:
+- `belongs_to :purchase`
+- `belongs_to :user, through: :purchase`
+
