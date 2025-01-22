@@ -26,6 +26,7 @@ Things you may want to cover:
 
 ```markdown
 
+
 ### USERS テーブル
 | Column               | Type           | Constraints                           |
 |----------------------|----------------|---------------------------------------|
@@ -43,18 +44,20 @@ Things you may want to cover:
 - `has_many :purchases`
 - `has_many :addresses, through: :purchases`
 
+---
+
 ### ITEMS テーブル
-| Column               | Type           | Constraints                                        |
-|----------------------|----------------|----------------------------------------------------|
-| name                 | string         | null: false                                        |
-| description          | text           | null: false                                        |
-| price                | integer        | null: false                                        |
-| category_id          | integer        | null: false, foreign key references Categories(id) |
-| condition_id         | integer        | null: false, foreign key references ItemConditions(id) |
-| shipping_fee_id      | integer        | null: false, foreign key references ShippingFees(id) |
-| region_id            | integer        | null: false, foreign key references Regions(id)     |
-| shipping_days_id     | integer        | null: false, foreign key references ShippingDays(id)|
-| user_id              | bigint         | null: false, foreign key references Users(id)      |
+| Column               | Type           | Constraints          |
+|----------------------|----------------|----------------------|
+| name                 | string         | null: false          |
+| description          | text           | null: false          |
+| price                | integer        | null: false          |
+| category_id          | integer        | null: false          |
+| condition_id         | integer        | null: false          |
+| shipping_fee_id      | integer        | null: false          |
+| region_id            | integer        | null: false          |
+| shipping_days_id     | integer        | null: false          |
+| user_id              | bigint         | null: false          |
 
 **アソシエーション**:
 - `belongs_to :user`
@@ -66,29 +69,32 @@ Things you may want to cover:
 - `has_many :purchases`
 - `has_many :addresses, through: :purchases`
 
+---
+
 ### PURCHASES テーブル
-| Column               | Type           | Constraints                                        |
-|----------------------|----------------|----------------------------------------------------|
-| buyer_id             | bigint         | null: false, foreign key references Users(id)      |
-| item_id              | bigint         | null: false, foreign key references Items(id)      |
+| Column               | Type           | Constraints          |
+|----------------------|----------------|----------------------|
+| buyer_id             | bigint         | null: false          |
+| item_id              | bigint         | null: false          |
 
 **アソシエーション**:
 - `belongs_to :user`
 - `belongs_to :item`
 - `has_one :address`
 
+---
+
 ### ADDRESSES テーブル
-| Column               | Type           | Constraints                                        |
-|----------------------|----------------|----------------------------------------------------|
-| purchase_id          | bigint         | null: false, foreign key references Purchases(id)  |
-| zip_code             | string         | null: false                                        |
-| state                | string         | null: false                                        |
-| city                 | string         | null: false                                        |
-| address_line         | string         | null: false                                        |
-| country              | string         | null: false                                        |
-| region_id            | integer        | null: false, foreign key references Regions(id)     |
+| Column               | Type           | Constraints          |
+|----------------------|----------------|----------------------|
+| purchase_id          | bigint         | null: false          |
+| zip_code             | string         | null: false          |
+| state                | string         | null: false          |
+| city                 | string         | null: false          |
+| address_line         | string         | null: false          |
+| country              | string         | null: false          |
+| region_id            | integer        | null: false          |
 
 **アソシエーション**:
 - `belongs_to :purchase`
 - `belongs_to :user, through: :purchase`
-
