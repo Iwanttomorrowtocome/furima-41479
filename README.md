@@ -23,47 +23,49 @@ Things you may want to cover:
 
 * ...
 
-USERS {
-    string nickname null: false
-    string email null: false, unique: true
-    string encrypted_password null: false
-    string password_confirmation null: false
-    string first_name null: false
-    string last_name null: false
-    string first_name_kana null: false
-    string last_name_kana null: false
-    date birth_date null: false
-}
+Here is the schema you provided in markdown format:
 
-ITEMS {
-    string name null: false
-    text description null: false
-    integer price null: false
-    integer category_id null: false, foreign key references Categories(id)
-    integer condition_id null: false, foreign key references ItemConditions(id)
-    integer shipping_fee_id null: false, foreign key references ShippingFees(id)
-    integer region_id null: false, foreign key references Regions(id)
-    integer shipping_days_id null: false, foreign key references ShippingDays(id)
-    bigint user_id null: false, foreign key references Users(id)
-    timestamp created_at default: CURRENT_TIMESTAMP
-    timestamp updated_at default: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-}
+Here is the revised schema based on your preferences:
 
-PURCHASES {
-    bigint buyer_id null: false, foreign key references Users(id)
-    bigint item_id null: false, foreign key references Items(id)
-}
+```markdown
+### USERS
+| Column               | Type           | Constraints                           |
+|----------------------|----------------|---------------------------------------|
+| nickname             | string         | null: false                           |
+| email                | string         | null: false, unique: true             |
+| encrypted_password   | string         | null: false                           |
+| password_confirmation| string         | null: false                           |
+| first_name           | string         | null: false                           |
+| last_name            | string         | null: false                           |
+| first_name_kana      | string         | null: false                           |
+| last_name_kana       | string         | null: false                           |
+| birth_date           | date           | null: false                           |
 
-addresses {
-    purchase_id: bigint, null: false, foreign key references purchases(id)
-    zip_code: string, null: false   
-    state: string, null: false      
-    city: string, null: false       
-    address_line: string, null: false 
-    country: string, null: false     
-}
+### ITEMS
+| Column               | Type           | Constraints                                        |
+|----------------------|----------------|----------------------------------------------------|
+| name                 | string         | null: false                                        |
+| description          | text           | null: false                                        |
+| price                | integer        | null: false                                        |
+| category_id          | integer        | null: false, foreign key references Categories(id) |
+| condition_id         | integer        | null: false, foreign key references ItemConditions(id) |
+| shipping_fee_id      | integer        | null: false, foreign key references ShippingFees(id) |
+| region_id            | integer        | null: false, foreign key references Regions(id)     |
+| shipping_days_id     | integer        | null: false, foreign key references ShippingDays(id)|
+| user_id              | bigint         | null: false, foreign key references Users(id)      |
 
-USERS ||--o{ ITEMS : "has many"
-    USERS ||--o{ PURCHASES : "has many"
-    PURCHASES ||--o{ ADDRESSES : "has one"
-    ITEMS ||--o{ PURCHASES : "has many"
+### PURCHASES
+| Column               | Type           | Constraints                                        |
+|----------------------|----------------|----------------------------------------------------|
+| buyer_id             | bigint         | null: false, foreign key references Users(id)      |
+| item_id              | bigint         | null: false, foreign key references Items(id)      |
+
+### ADDRESSES
+| Column               | Type           | Constraints                                        |
+|----------------------|----------------|----------------------------------------------------|
+| purchase_id          | bigint         | null: false, foreign key references Purchases(id)  |
+| zip_code             | string         | null: false                                        |
+| state                | string         | null: false                                        |
+| city                 | string         | null: false                                        |
+| address_line         | string         | null: false                                        |
+| country              | string         | null: false                                        |
