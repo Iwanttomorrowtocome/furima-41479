@@ -23,7 +23,6 @@ Things you may want to cover:
 
 * ...
 
-# ER図
 USERS {
     string nickname null: false
     string email null: false, unique: true
