@@ -67,7 +67,6 @@ Things you may want to cover:
 - `has_one :purchase`
 
 
-
 ### PURCHASES テーブル
 | Column               | Type           | Constraints                    |
 |----------------------|----------------|--------------------------------|
@@ -77,6 +76,7 @@ Things you may want to cover:
 **アソシエーション**:
 - `belongs_to :user`
 - `belongs_to :item`
+- `has_one :address`
 
 
 ### ADDRESSES テーブル
@@ -89,4 +89,4 @@ Things you may want to cover:
 | address_line         | string         | null: false          |
 | country              | string         | null: false          |
 | region_id            | integer        | null: false          |
-
+| building_name        | string         | null: true           |
