@@ -27,36 +27,6 @@ Things you may want to cover:
 ```markdown
 
 
-### PURCHASES テーブル
-| Column               | Type           | Constraints          |
-|----------------------|----------------|----------------------|
-| buyer_id             | bigint         | null: false          |
-| item_id              | bigint         | null: false          |
-
-**アソシエーション**:
-- `belongs_to :user`
-- `belongs_to :item`
-- `has_one :address`
-
----
-
-### ADDRESSES テーブル
-| Column               | Type           | Constraints          |
-|----------------------|----------------|----------------------|
-| purchase_id          | bigint         | null: false          |
-| zip_code             | string         | null: false          |
-| state                | string         | null: false          |
-| city                 | string         | null: false          |
-| address_line         | string         | null: false          |
-| country              | string         | null: false          |
-| region_id            | integer        | null: false          |
-
-**アソシエーション**:
-- `belongs_to :purchase`
-- `belongs_to :user, through: :purchase`
-
-
-
 ### USERS テーブル
 | Column               | Type           | Constraints                           |
 |----------------------|----------------|---------------------------------------|
@@ -74,19 +44,18 @@ Things you may want to cover:
 - `has_many :purchases`
 
 
-
 ### ITEMS テーブル
-| Column               | Type           | Constraints          |
-|----------------------|----------------|----------------------|
-| name                 | string         | null: false          |
-| description          | text           | null: false          |
-| price                | integer        | null: false          |
-| category_id          | integer        | null: false          |
-| condition_id         | integer        | null: false          |
-| shipping_fee_id      | integer        | null: false          |
-| region_id            | integer        | null: false          |
-| shipping_day_id      | integer        | null: false          |
-| user_id              | bigint         | null: false          |
+| Column               | Type           | Constraints                  |
+|----------------------|----------------|------------------------------|
+| name                 | string         | null: false                  |
+| description          | text           | null: false                  |
+| price                | integer        | null: false                  |
+| category_id          | integer        | null: false                  |
+| condition_id         | integer        | null: false                  |
+| shipping_fee_id      | integer        | null: false                  |
+| region_id            | integer        | null: false                  |
+| shipping_day_id      | integer        | null: false                  |
+| user                 | references     | null: false, foreign_key: true |
 
 **アソシエーション**:
 - `belongs_to :user`
@@ -95,21 +64,33 @@ Things you may want to cover:
 - `belongs_to :shipping_fee`
 - `belongs_to :region`
 - `belongs_to :shipping_day`
-- `has_many :purchases`
-- `has_many :addresses, through: :purchases`
+- `has_one :purchase`
 
+
+
+### PURCHASES テーブル
+| Column               | Type           | Constraints                    |
+|----------------------|----------------|--------------------------------|
+| buyer                | references     | null: false, foreign_key: true |
+| item                 | references     | null: false, foreign_key: true |
+
+**アソシエーション**:
+- `belongs_to :user, foreign_key: :buyer`
+- `belongs_to :item`
 
 
 ### ADDRESSES テーブル
 | Column               | Type           | Constraints          |
 |----------------------|----------------|----------------------|
-| purchase             | references     | null: false, foreign_key: true |
+| purchase             | references     | null: false          |
 | zip_code             | string         | null: false          |
 | state                | string         | null: false          |
 | city                 | string         | null: false          |
-| address_line         | string         | null: false          |                    |
+| address_line         | string         | null: false          |
 | country              | string         | null: false          |
-| region_id            | integer        | null: false          |
+| region               | references     | null: false          |
 
 **アソシエーション**:
-- `belongs_to :purchase` 
+- `belongs_to :purchase`
+- `belongs_to :region`
+
