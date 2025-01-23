@@ -26,7 +26,6 @@ Things you may want to cover:
 
 ```markdown
 
-
 ### USERS テーブル
 | Column               | Type           | Constraints                           |
 |----------------------|----------------|---------------------------------------|
@@ -40,8 +39,8 @@ Things you may want to cover:
 | birth_date           | date           | null: false                           |
 
 **アソシエーション**:
-- `has_many :items`
-- `has_many :purchases`
+- has_many :items
+- has_many :purchases
 
 
 ### ITEMS テーブル
@@ -58,13 +57,13 @@ Things you may want to cover:
 | user                 | references     | null: false, foreign_key: true |
 
 **アソシエーション**:
-- `belongs_to :user`
-- `belongs_to :category`
-- `belongs_to :condition`
-- `belongs_to :shipping_fee`
-- `belongs_to :region`
-- `belongs_to :shipping_day`
-- `has_one :purchase`
+- belongs_to :user
+- belongs_to :category
+- belongs_to :condition
+- belongs_to :shipping_fee
+- belongs_to :region
+- belongs_to :shipping_day
+- has_one :purchase
 
 
 ### PURCHASES テーブル
@@ -74,9 +73,9 @@ Things you may want to cover:
 | item                 | references     | null: false, foreign_key: true |
 
 **アソシエーション**:
-- `belongs_to :user`
-- `belongs_to :item`
-- `has_one :address`
+- belongs_to :user
+- belongs_to :item
+- has_one :address
 
 
 ### ADDRESSES テーブル
@@ -84,9 +83,13 @@ Things you may want to cover:
 |----------------------|----------------|----------------------|
 | purchase             | references     | null: false          |
 | zip_code             | string         | null: false          |
-| state                | string         | null: false          |
+| state                | string         |                       |
 | city                 | string         | null: false          |
 | address_line         | string         | null: false          |
+| building_name        | string         |                       |
 | country              | string         | null: false          |
 | region_id            | integer        | null: false          |
-| building_name        | string         | null: true           |
+
+**アソシエーション**:
+- belongs_to :purchase
+
