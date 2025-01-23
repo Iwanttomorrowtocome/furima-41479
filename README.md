@@ -71,11 +71,11 @@ Things you may want to cover:
 ### PURCHASES テーブル
 | Column               | Type           | Constraints                    |
 |----------------------|----------------|--------------------------------|
-| buyer                | references     | null: false, foreign_key: true |
+| user                 | references     | null: false, foreign_key: true |
 | item                 | references     | null: false, foreign_key: true |
 
 **アソシエーション**:
-- `belongs_to :user, foreign_key: :buyer`
+- `belongs_to :user`
 - `belongs_to :item`
 
 
@@ -88,9 +88,5 @@ Things you may want to cover:
 | city                 | string         | null: false          |
 | address_line         | string         | null: false          |
 | country              | string         | null: false          |
-| region               | references     | null: false          |
-
-**アソシエーション**:
-- `belongs_to :purchase`
-- `belongs_to :region`
+| region_id            | integer        | null: false          |
 
