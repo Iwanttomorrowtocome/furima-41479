@@ -83,7 +83,6 @@ Things you may want to cover:
 |----------------------|----------------|----------------------|
 | purchase             | references     | null: false          |
 | zip_code             | string         | null: false          |
-| state                | string         |                       
 | city                 | string         | null: false          |
 | address_line         | string         | null: false          |
 | building_name        | string         |                      |
