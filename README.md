@@ -86,7 +86,7 @@ Things you may want to cover:
 | state                | string         |                       |
 | city                 | string         | null: false          |
 | address_line         | string         | null: false          |
-| building_name        | string         |                       |
+| building_name        | string         | null: true                       |
 | country              | string         | null: false          |
 | region_id            | integer        | null: false          |
 
