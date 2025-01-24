@@ -1,32 +1,6 @@
-# README
+markdown
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-```markdown
-
-### USERS テーブル
+#### **users テーブル**
 | Column               | Type           | Constraints                           |
 |----------------------|----------------|---------------------------------------|
 | nickname             | string         | null: false                           |
@@ -43,7 +17,7 @@ Things you may want to cover:
 - has_many :purchases
 
 
-### ITEMS テーブル
+#### **items テーブル**
 | Column               | Type           | Constraints                  |
 |----------------------|----------------|------------------------------|
 | name                 | string         | null: false                  |
@@ -52,7 +26,7 @@ Things you may want to cover:
 | category_id          | integer        | null: false                  |
 | condition_id         | integer        | null: false                  |
 | shipping_fee_id      | integer        | null: false                  |
-| region_id            | integer        | null: false                  |
+| prefecture_id        | integer        | null: false                  |
 | shipping_day_id      | integer        | null: false                  |
 | user                 | references     | null: false, foreign_key: true |
 
@@ -66,7 +40,7 @@ Things you may want to cover:
 - has_one :purchase
 
 
-### PURCHASES テーブル
+#### **purchases テーブル**
 | Column               | Type           | Constraints                    |
 |----------------------|----------------|--------------------------------|
 | user                 | references     | null: false, foreign_key: true |
@@ -78,7 +52,7 @@ Things you may want to cover:
 - has_one :address
 
 
-### ADDRESSES テーブル
+#### **addresses テーブル**
 | Column               | Type           | Constraints                    |
 |----------------------|----------------|--------------------------------|
 | purchase             | references     | null: false, foreign_key: true |
@@ -91,3 +65,4 @@ Things you may want to cover:
 
 **アソシエーション**:
 - belongs_to :purchase
+
