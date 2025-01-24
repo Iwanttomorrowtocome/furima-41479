@@ -1,66 +1,66 @@
-# README
+#### **users テーブル**
+| Column               | Type           | Constraints                           |
+|----------------------|----------------|---------------------------------------|
+| nickname             | string         | null: false                           |
+| email                | string         | null: false, unique: true             |
+| encrypted_password   | string         | null: false                           |
+| first_name           | string         | null: false                           |
+| last_name            | string         | null: false                           |
+| first_name_kana      | string         | null: false                           |
+| last_name_kana       | string         | null: false                           |
+| birth_date           | date           | null: false                           |
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**アソシエーション**:
+- has_many :items
+- has_many :purchases
 
-Things you may want to cover:
 
-* Ruby version
+#### **items テーブル**
+| Column               | Type           | Constraints                  |
+|----------------------|----------------|------------------------------|
+| name                 | string         | null: false                  |
+| description          | text           | null: false                  |
+| price                | integer        | null: false                  |
+| category_id          | integer        | null: false                  |
+| condition_id         | integer        | null: false                  |
+| shipping_fee_id      | integer        | null: false                  |
+| prefecture_id        | integer        | null: false                  |
+| shipping_day_id      | integer        | null: false                  |
+| user                 | references     | null: false, foreign_key: true |
 
-* System dependencies
+**アソシエーション**:
+- belongs_to :user
+- belongs_to :category
+- belongs_to :condition
+- belongs_to :shipping_fee
+- belongs_to :region
+- belongs_to :shipping_day
+- has_one :purchase
 
-* Configuration
 
-* Database creation
+#### **purchases テーブル**
+| Column               | Type           | Constraints                    |
+|----------------------|----------------|--------------------------------|
+| user                 | references     | null: false, foreign_key: true |
+| item                 | references     | null: false, foreign_key: true |
 
-* Database initialization
+**アソシエーション**:
+- belongs_to :user
+- belongs_to :item
+- has_one :address
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+#### **addresses テーブル**
+| Column               | Type           | Constraints                    |
+|----------------------|----------------|--------------------------------|
+| purchase             | references     | null: false, foreign_key: true |
+| zip_code             | string         | null: false                    |
+| prefecture_id        | integer        | null: false                    |
+| city                 | string         | null: false                    |
+| address_line         | string         | null: false                    |
+| building_name        | string         |                                |
+| phone_number         | string         | null: false                    |
 
-* Deployment instructions
-
-* ...
-
-### **Users Table**
-| Column        | Type          | Constraints        |
-|---------------|---------------|--------------------|
-| id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
-| name          | VARCHAR(255)  | NOT NULL           |
-| email         | VARCHAR(255)  | NOT NULL, UNIQUE   |
-| password      | VARCHAR(255)  | NOT NULL           |
-| created_at    | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP |
-| updated_at    | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP |
-
-### **Items Table**
-| Column        | Type          | Constraints        |
-|---------------|---------------|--------------------|
-| id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
-| name          | VARCHAR(255)  | NOT NULL           |
-| description   | TEXT          |                    |
-| price         | DECIMAL(10, 2)| NOT NULL           |
-| category      | VARCHAR(255)  |                    |
-| image_url     | TEXT          |                    |
-| seller_id     | BIGINT        | FOREIGN KEY REFERENCES Users(id) |
-| created_at    | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP |
-| updated_at    | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP |
-
-### **Purchases Table**
-| Column        | Type          | Constraints        |
-|---------------|---------------|--------------------|
-| id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
-| buyer_id      | BIGINT        | FOREIGN KEY REFERENCES Users(id) |
-| item_id       | BIGINT        | FOREIGN KEY REFERENCES Items(id) |
-| purchase_date | TIMESTAMP     | DEFAULT CURRENT_TIMESTAMP |
-
-### **Addresses Table**
-| Column        | Type          | Constraints        |
-|---------------|---------------|--------------------|
-| id            | BIGINT        | PRIMARY KEY, AUTO_INCREMENT |
-| purchase_id   | BIGINT        | FOREIGN KEY REFERENCES Purchases(id) |
-| address_line  | TEXT          | NOT NULL           |
-| city          | VARCHAR(255)  | NOT NULL           |
-| zip_code      | VARCHAR(20)   | NOT NULL           |
-| country       | VARCHAR(255)  | NOT NULL           |
+**アソシエーション**:
+- belongs_to :purchase
 
